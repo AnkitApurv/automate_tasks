@@ -1,9 +1,8 @@
 from typing import Tuple
 
 from selenium import webdriver
-from selenium.webdriver.firefox.options import Options as FirefoxOptions
 
-from app import app_utils, app_config
+from app import app_utils, app_config, logging_config
 from app.crypto import read_encrypted_config
 
 def read_credential() -> Tuple[str, str, str]:
@@ -72,8 +71,13 @@ def main():
     """
     _summary_
     """
+    logging_config.log.info('Read Credentials: Begin')
     username, password, otp = read_credential()
+    logging_config.log.info('Read Credentials: Done')
+    logging_config.log.info('Read Website Configuration: Begin')
     url, username_id, password_id, otp_id, submit_button_id = read_website_config()
+    logging_config.log.info('Read Website Configuration: Done')
+    logging_config.log.info('Logging In: Begin')
     login(
         url = url,
         username_id = username_id, username = username,
@@ -81,6 +85,7 @@ def main():
         otp_id = otp_id, otp = otp,
         submit_button_id = submit_button_id
     )
+    logging_config.log.info('Logging In: Done')
     return
 
 if __name__ == '__main__':

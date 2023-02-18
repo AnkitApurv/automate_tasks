@@ -1,4 +1,5 @@
 import argparse
+from app import logging_config
 from app.crypto import make_encrypted_config, read_encrypted_config
 
 def update_config(config: dict) -> dict:
@@ -18,11 +19,16 @@ def main():
     """
     _summary_
     """
-    encrypted_old = read_encrypted_config.read_config()
-    config_old = read_encrypted_config.decrypt_config(encrypted_old)
+    logging_config.log.info('Read Current Credentials: Begin')
+    config_old = read_encrypted_config.main()
+    logging_config.log.info('Read Current Credentials: Done')
+    logging_config.log.info('Prompt User for New Password: Begin')
     config_updated = update_config(config_old)
+    logging_config.log.info('Prompt User for New Password: Done')
+    logging_config.log.info('Save New Credentials: Begin')
     encrypted_new = make_encrypted_config.encrypt_config(config_updated)
     make_encrypted_config.save_config(encrypted_new)
+    logging_config.log.info('Save New Credentials: Done')
     return
 
 if __name__ == '__main__':

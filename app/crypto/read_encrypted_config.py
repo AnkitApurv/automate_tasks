@@ -1,5 +1,5 @@
 import json
-from app import app_config
+from app import app_config, logging_config
 from app.crypto import crypto_interface
 
 def read_config():
@@ -17,8 +17,10 @@ def main():
     """
     _summary_
     """
+    logging_config.log.info('Read Current Credentials: Begin')
     encrypted = read_config()
     config = decrypt_config(encrypted)
+    logging_config.log.info('Read Current Credentials: Done')
     return config
 
 if __name__ == '__main__':

@@ -1,6 +1,6 @@
 import json
 import argparse
-from app import app_config
+from app import app_config, logging_config
 from app.crypto import crypto_interface
 
 def get_config():
@@ -47,9 +47,13 @@ def main():
     """
     _summary_
     """
+    logging_config.log.info('Prompt User for Credentials: Begin')
     config = get_config()
+    logging_config.log.info('Prompt User for Credentials: Done')
+    logging_config.log.info('Save New Credentials: Begin')
     encrypted = encrypt_config(config)
     save_config(encrypted)
+    logging_config.log.info('Save New Credentials: Done')
     return
 
 if __name__ == '__main__':
