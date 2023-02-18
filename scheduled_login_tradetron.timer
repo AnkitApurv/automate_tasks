@@ -1,5 +1,5 @@
 [Unit]
-Description=Download weather to motd nightly
+Description=Login into tradetron via selenium
 
 [Timer]
 OnCalendar=daily

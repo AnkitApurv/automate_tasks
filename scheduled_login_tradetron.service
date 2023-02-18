@@ -1,6 +1,6 @@
 [Unit]
-Description=Update message of the day with current weather
+Description=Login into tradetron via selenium
 
 [Service]
-ExecStart=/usr/bin/curl -o /etc/motd http://wttr.in/?1Fq
+ExecStart=python3 -m /home/ubuntu/bin/scheduled_login_tradetron/app
 Type=oneshot
