@@ -1,6 +1,8 @@
 from typing import Tuple
 
 from selenium import webdriver
+from selenium.webdriver.firefox.options import Options as FirefoxOptions
+
 from app import app_utils, app_config
 from app.crypto import read_encrypted_config
 
@@ -56,6 +58,7 @@ def login(url: str, username_id: str, username: str, password_id: str, password:
     :type submit_button_id: str
     """
     browser = webdriver.Firefox()
+    options = webdriver.FirefoxOptions()
     browser.get(url)
     browser.find_element_by_id(username_id).send_keys(username)
     browser.find_element_by_id(password_id).send_keys(password)

@@ -1,5 +1,5 @@
 {
-    "config_base_path": "./app/config",
+    "config_base_path": "./scheduled_login_tradetron/app/config",
     "config_files": {
         "webpage": "webpage.json",
         "credential": "credentials.secret.json.bin"
