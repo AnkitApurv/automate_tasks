@@ -1,6 +1,6 @@
 [Unit]
-Description=Login into tradetron via selenium
+Description=scheduled_login_tradetron
 
 [Service]
-ExecStart=python3 -m /home/ubuntu/bin/scheduled_login_tradetron/app
+ExecStart=/usr/bin/python3 -m /home/ubuntu/bin/scheduled_login_tradetron/app
 Type=oneshot
