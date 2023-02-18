@@ -1,0 +1,11 @@
+{
+    "config_base_path": "./app/config",
+    "config_files": {
+        "webpage": "webpage.json",
+        "credential": "credentials.secret.json.bin"
+    },
+    "asymmetric_keyset": {
+        "public_key": "public_key.pem",
+        "private_key": "private_key.pem"
+    }
+}

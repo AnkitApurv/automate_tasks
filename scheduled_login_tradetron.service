@@ -1,0 +1,6 @@
+[Unit]
+Description=Update message of the day with current weather
+
+[Service]
+ExecStart=/usr/bin/curl -o /etc/motd http://wttr.in/?1Fq
+Type=oneshot

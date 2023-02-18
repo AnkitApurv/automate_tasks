@@ -1,0 +1,10 @@
+[Unit]
+Description=Download weather to motd nightly
+
+[Timer]
+OnCalendar=daily
+Persistent=true
+RandomizedDelaySec=1h
+
+[Install]
+WantedBy=timers.target
