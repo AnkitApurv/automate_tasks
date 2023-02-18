@@ -57,8 +57,10 @@ def login(url: str, username_id: str, username: str, password_id: str, password:
     :param submit_button_id: _description_
     :type submit_button_id: str
     """
-    browser = webdriver.Firefox()
     options = webdriver.FirefoxOptions()
+    options.headless = True
+
+    browser = webdriver.Firefox(options=options)
     browser.get(url)
     browser.find_element_by_id(username_id).send_keys(username)
     browser.find_element_by_id(password_id).send_keys(password)
