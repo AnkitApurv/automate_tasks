@@ -2,6 +2,6 @@
 Description=scheduled_login_tradetron
 
 [Service]
-ExecStart=/usr/bin/python3 -m /home/ubuntu/bin/scheduled_login_tradetron
+ExecStart=/usr/bin/python3 scheduled_login_tradetron
 WorkingDirectory=/home/ubuntu/bin
 Type=oneshot
