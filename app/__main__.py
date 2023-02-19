@@ -56,21 +56,27 @@ def login(url: str, username_id: str, username: str, password_id: str, password:
     :param submit_button_id: _description_
     :type submit_button_id: str
     """
-    options = webdriver.FirefoxOptions()
-    options.headless = False
-    options.profile = webdriver.FirefoxProfile("/home/ubuntu/.mozilla/firefox/yy4k6fue.default-release")
-    
+    logging_config.log.info('Firefox option set begin')
+    browser_options = webdriver.chrome.options.Options()
+    browser_options.add_argument("--headless")
+    logging_config.log.info('Firefox option set done')
 
-    browser = webdriver.Firefox(options=options)
+    logging_config.log.info('Firefox browser init begins')
+    browser = webdriver.Chrome(options = browser_options)
+    logging_config.log.info('Firefox browser init done')
 
+    logging_config.log.info('Login process begins')
     browser.get(url)
     logging_config.log.info('Webpage Title: %s', browser.title)
     browser.find_element_by_id(username_id).send_keys(username)
     browser.find_element_by_id(password_id).send_keys(password)
     browser.find_element_by_id(otp_id).send_keys(otp)
+    logging_config.log.info('form filled')
     browser.find_element_by_id(submit_button_id).click()
+    logging_config.log.info('form submitted')
 
     browser.quit()
+    logging_config.log.info('browser closed')
     return
 
 def main():
