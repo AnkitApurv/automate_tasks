@@ -1,6 +1,8 @@
 from typing import Tuple
 
 from selenium import webdriver
+from selenium.webdriver.chrome.options import Options as Browser_Options
+from selenium.webdriver.common.by import By as Find_Element_By
 
 from app import app_utils, app_config, logging_config
 from app.crypto import read_encrypted_config
@@ -57,22 +59,23 @@ def login(url: str, username_id: str, username: str, password_id: str, password:
     :type submit_button_id: str
     """
     logging_config.log.info('Firefox option set begin')
-    browser_options = webdriver.chrome.options.Options()
+    browser_options = Browser_Options()
     browser_options.add_argument("--headless")
     logging_config.log.info('Firefox option set done')
 
     logging_config.log.info('Firefox browser init begins')
     browser = webdriver.Chrome(options = browser_options)
     logging_config.log.info('Firefox browser init done')
+    # webdriver.Chrome().find_element_by_id()
 
     logging_config.log.info('Login process begins')
     browser.get(url)
     logging_config.log.info('Webpage Title: %s', browser.title)
-    browser.find_element_by_id(username_id).send_keys(username)
-    browser.find_element_by_id(password_id).send_keys(password)
-    browser.find_element_by_id(otp_id).send_keys(otp)
+    browser.find_element(Find_Element_By.ID, username_id).send_keys(username)
+    browser.find_element(Find_Element_By.ID, password_id).send_keys(password)
+    browser.find_element(Find_Element_By.ID, otp_id).send_keys(otp)
     logging_config.log.info('form filled')
-    browser.find_element_by_id(submit_button_id).click()
+    browser.find_element(Find_Element_By.ID, submit_button_id).click()
     logging_config.log.info('form submitted')
 
     browser.quit()
