@@ -64,6 +64,7 @@ def login(url: str, username_id: str, username: str, password_id: str, password:
     browser = webdriver.Firefox(options=options)
 
     browser.get(url)
+    logging_config.log.info('Webpage Title: %s', browser.title)
     browser.find_element_by_id(username_id).send_keys(username)
     browser.find_element_by_id(password_id).send_keys(password)
     browser.find_element_by_id(otp_id).send_keys(otp)
