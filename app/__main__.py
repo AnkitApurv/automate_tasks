@@ -57,14 +57,19 @@ def login(url: str, username_id: str, username: str, password_id: str, password:
     :type submit_button_id: str
     """
     options = webdriver.FirefoxOptions()
-    options.headless = True
+    options.headless = False
+    options.profile = webdriver.FirefoxProfile("/home/ubuntu/.mozilla/firefox/yy4k6fue.default-release")
+    
 
     browser = webdriver.Firefox(options=options)
+
     browser.get(url)
     browser.find_element_by_id(username_id).send_keys(username)
     browser.find_element_by_id(password_id).send_keys(password)
     browser.find_element_by_id(otp_id).send_keys(otp)
     browser.find_element_by_id(submit_button_id).click()
+
+    browser.quit()
     return
 
 def main():
