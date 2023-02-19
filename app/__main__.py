@@ -58,37 +58,27 @@ def login(url: str, username_id: str, username: str, password_id: str, password:
     :param submit_button_id: _description_
     :type submit_button_id: str
     """
-    logging_config.log.info('Firefox option set begin')
     browser_options = Browser_Options()
     browser_options.add_argument("--headless")
-    logging_config.log.info('Firefox option set done')
 
-    logging_config.log.info('Firefox browser init begins')
     browser = webdriver.Chrome(options = browser_options)
-    logging_config.log.info('Firefox browser init done')
-    # webdriver.Chrome().find_element_by_id()
 
-    logging_config.log.info('Login process begins')
     browser.get(url)
-    logging_config.log.info('Webpage Title: %s', browser.title)
+
     browser.find_element(Find_Element_By.ID, username_id).send_keys(username)
     browser.find_element(Find_Element_By.ID, password_id).send_keys(password)
     browser.find_element(Find_Element_By.ID, otp_id).send_keys(otp)
-    logging_config.log.info('form filled')
+
     browser.find_element(Find_Element_By.ID, submit_button_id).click()
-    logging_config.log.info('form submitted')
 
     browser.quit()
-    logging_config.log.info('browser closed')
     return
 
 def main():
     """
     _summary_
     """
-    logging_config.log.info('Read Credentials: Begin')
     username, password, otp = read_credential()
-    logging_config.log.info('Read Credentials: Done')
     logging_config.log.info('Read Website Configuration: Begin')
     url, username_id, password_id, otp_id, submit_button_id = read_website_config()
     logging_config.log.info('Read Website Configuration: Done')
