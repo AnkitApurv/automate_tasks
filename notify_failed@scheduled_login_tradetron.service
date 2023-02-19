@@ -1,0 +1,6 @@
+[Unit]
+Description=status email for %I to user
+
+[Service]
+Type=oneshot
+ExecStart=cat /home/ubuntu/bin/scheduled_login_tradetron/scheduled_login_tradetron.log | mail -s "notify_failed@scheduled_login_tradetron" sriv.ritesh@gmail.com
