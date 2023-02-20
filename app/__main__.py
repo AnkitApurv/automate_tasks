@@ -62,7 +62,6 @@ def login(url: str, username_id: str, username: str, password_id: str, password:
     :type submit_button_id: str
     """
     browser_options = Browser_Options()
-    browser_options.add_argument('--no-sandbox')
     browser_options.add_argument('--headless')
     browser_options.add_argument('--disable-extensions')
     browser_options.add_argument('--disable-gpu')
