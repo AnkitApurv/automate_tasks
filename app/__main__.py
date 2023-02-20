@@ -66,7 +66,8 @@ def login(url: str, username_id: str, username: str, password_id: str, password:
     browser_options.add_argument('--disable-extensions')
     browser_options.add_argument('--disable-gpu')
 
-    browser = webdriver.Chrome()
+    # browser = webdriver.Remote(command_executor = 'http://127.0.0.1:4444/wd/hub', options = browser_options)
+    browser = webdriver.Chrome(options = browser_options)
 
     browser.get(url)
     time.sleep(5) # giving time for webpage to load, inefficient but no optimal solution available
