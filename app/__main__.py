@@ -63,6 +63,8 @@ def login(url: str, username_id: str, username: str, password_id: str, password:
     """
     browser_options = Browser_Options()
     browser_options.add_argument("--headless")
+    browser_options.add_argument("--disable-extensions")
+    browser_options.add_argument("--disable-gpu")
 
     browser = webdriver.Chrome()
 
