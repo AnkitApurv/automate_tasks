@@ -1,6 +1,9 @@
 from typing import Tuple
+import time
 
 from selenium import webdriver
+from selenium.webdriver.support import expected_conditions
+from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.chrome.options import Options as Browser_Options
 from selenium.webdriver.common.by import By as Find_Element_By
 
@@ -61,16 +64,28 @@ def login(url: str, username_id: str, username: str, password_id: str, password:
     browser_options = Browser_Options()
     browser_options.add_argument("--headless")
 
-    browser = webdriver.Chrome(options = browser_options)
+    browser = webdriver.Chrome()
 
     browser.get(url)
+    time.sleep(5) # giving time for webpage to load, inefficient but no optimal solution available
 
+    browser.save_screenshot('./scheduled_login_tradetron/logs/before_form_fill.png')
     browser.find_element(Find_Element_By.ID, username_id).send_keys(username)
     browser.find_element(Find_Element_By.ID, password_id).send_keys(password)
     browser.find_element(Find_Element_By.ID, otp_id).send_keys(otp)
-
+    WebDriverWait(driver = browser, timeout = 5).until(
+        expected_conditions.text_to_be_present_in_element_value(
+            (Find_Element_By.ID, otp_id), otp
+        )
+    )
+    time.sleep(5) # giving time for form filling to be completed successfully inefficient but no optimal solution available
+    browser.save_screenshot('./scheduled_login_tradetron/logs/after_form_fill.png')
     browser.find_element(Find_Element_By.ID, submit_button_id).click()
-
+    browser.save_screenshot('./scheduled_login_tradetron/logs/after_form_submit.png')
+    WebDriverWait(driver = browser, timeout = 5).until(
+        expected_conditions.title_is('Success')
+    )
+    browser.save_screenshot('./scheduled_login_tradetron/logs/after_redirect.png')
     browser.quit()
     return
 
