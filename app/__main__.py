@@ -7,6 +7,7 @@ import time
 import docker
 
 from selenium import webdriver
+from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.chrome.options import Options as Browser_Options
@@ -51,7 +52,7 @@ def run_container():
     _summary_
     """
     return docker.from_env().containers.run(
-        image = 'selenium/standalone-chrome', shm_size = '2g',
+        image = 'selenium/standalone-chrome', shm_size = '512m',
         detach = True, remove = True, auto_remove = True,
         publish_all_ports = True
     )
@@ -76,7 +77,7 @@ def instantiate_driver(exposed_ports: dict) -> webdriver.Remote:
 
     return webdriver.Remote(
         command_executor = f"http://127.0.0.1:{selenium_port_host}/wd/hub",
-        options = browser_options
+        options = browser_options, desired_capabilities = DesiredCapabilities.CHROME.copy()
     )
 
 def setup() -> Tuple[webdriver.Remote, Any]:
