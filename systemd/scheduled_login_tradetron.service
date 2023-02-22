@@ -3,6 +3,6 @@ Description=scheduled_login_tradetron
 OnFailure=notify_failed@%n
 
 [Service]
-ExecStart=/usr/bin/python3 scheduled_login_tradetron
-WorkingDirectory=/home/ubuntu/apps
+ExecStart=%h/opt/scheduled_login_tradetron/venv/bin/python scheduled_login_tradetron
+WorkingDirectory=%h/opt
 Type=oneshot

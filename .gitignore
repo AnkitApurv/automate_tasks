@@ -1,2 +1,8 @@
+# directories
+env
 __pycache__
+.vscode
+
+# files' globs
 *.log
+help.txt

@@ -1,5 +1,10 @@
+"""
+_summary_
+"""
 from typing import Tuple
 import time
+
+import docker
 
 from selenium import webdriver
 from selenium.webdriver.support import expected_conditions
@@ -31,7 +36,9 @@ def read_website_config() -> Tuple[str, str, str, str, str]:
     :return: _description_
     :rtype: Tuple[str, str, str, str, str]
     """
-    website_config = app_utils.read_config(config_file_path = f"{app_config.config_paths['config_base_path']}/{app_config.config_paths['config_files']['webpage']}")
+    website_config = app_utils.read_config(
+        config_file_path = f"{app_config.config_paths['config_base_path']}/{app_config.config_paths['config_files']['webpage']}"
+    )
     url = website_config['url']
     username_id = website_config['username_id']
     password_id = website_config['password_id']
@@ -39,11 +46,56 @@ def read_website_config() -> Tuple[str, str, str, str, str]:
     submit_button_id = website_config['submit_button_id']
     return url, username_id, password_id, otp_id, submit_button_id
 
+def run_container():
+    """
+    _summary_
+    """
+    docker_client = docker.from_env()
+    browser_container = docker_client.containers.run(
+        image = 'selenium/standalone-chrome', name = '', 
+        detach = True, remove = True, auto_remove = True
+    )
+    return browser_container
 
-def login(url: str, username_id: str, username: str, password_id: str, password: str, otp_id: str, otp: str,submit_button_id: str):
+def instantiate_driver() -> webdriver.Remote:
     """
     _summary_
 
+    :return: _description_
+    :rtype: webdriver.Remote
+    """
+    browser_options = Browser_Options()
+    browser_options.add_argument('--headless')
+    browser_options.add_argument('--disable-extensions')
+    browser_options.add_argument('--disable-gpu')
+
+    return webdriver.Remote(
+        command_executor = 'http://127.0.0.1:32771/wd/hub',
+        options = browser_options
+    )
+
+def setup():
+    """
+    _summary_
+
+    :return: _description_
+    :rtype: _type_
+    """
+    browser_container = run_container()
+    driver = instantiate_driver()
+    return driver
+
+def login(
+    driver: webdriver.Remote, url: str,
+    username_id: str, username: str,
+    password_id: str, password: str,
+    otp_id: str, otp: str,
+    submit_button_id: str):
+    """
+    _summary_
+
+    :param driver: _description_
+    :type driver: webdriver.Remote
     :param url: _description_
     :type url: str
     :param username_id: _description_
@@ -61,35 +113,57 @@ def login(url: str, username_id: str, username: str, password_id: str, password:
     :param submit_button_id: _description_
     :type submit_button_id: str
     """
-    browser_options = Browser_Options()
-    browser_options.add_argument('--headless')
-    browser_options.add_argument('--disable-extensions')
-    browser_options.add_argument('--disable-gpu')
+    driver.get(url)
+    # giving time for webpage to load,
+    # inefficient but no optimal solution available
+    time.sleep(3)
 
-    # browser = webdriver.Remote(command_executor = 'http://127.0.0.1:4444/wd/hub', options = browser_options)
-    browser = webdriver.Chrome(options = browser_options)
-
-    browser.get(url)
-    time.sleep(5) # giving time for webpage to load, inefficient but no optimal solution available
-
-    browser.save_screenshot('./scheduled_login_tradetron/logs/before_form_fill.png')
-    browser.find_element(Find_Element_By.ID, username_id).send_keys(username)
-    browser.find_element(Find_Element_By.ID, password_id).send_keys(password)
-    browser.find_element(Find_Element_By.ID, otp_id).send_keys(otp)
-    WebDriverWait(driver = browser, timeout = 5).until(
+    driver.save_screenshot('./scheduled_login_tradetron/logs/1_before_form_fill.png')
+    driver.find_element(Find_Element_By.ID, username_id).send_keys(username)
+    driver.find_element(Find_Element_By.ID, password_id).send_keys(password)
+    driver.find_element(Find_Element_By.ID, otp_id).send_keys(otp)
+    WebDriverWait(driver = driver, timeout = 3).until(
         expected_conditions.text_to_be_present_in_element_value(
             (Find_Element_By.ID, otp_id), otp
         )
     )
-    time.sleep(5) # giving time for form filling to be completed successfully inefficient but no optimal solution available
-    browser.save_screenshot('./scheduled_login_tradetron/logs/after_form_fill.png')
-    browser.find_element(Find_Element_By.ID, submit_button_id).click()
-    browser.save_screenshot('./scheduled_login_tradetron/logs/after_form_submit.png')
-    WebDriverWait(driver = browser, timeout = 5).until(
+    # giving time for form filling to be completed successfully,
+    # inefficient but no optimal solution available
+    time.sleep(1)
+    driver.save_screenshot('./scheduled_login_tradetron/logs/2_after_form_fill.png')
+    driver.find_element(Find_Element_By.ID, submit_button_id).click()
+    driver.save_screenshot('./scheduled_login_tradetron/logs/3_after_form_submit.png')
+    WebDriverWait(driver = driver, timeout = 15).until(
         expected_conditions.title_is('Success')
     )
-    browser.save_screenshot('./scheduled_login_tradetron/logs/after_redirect.png')
-    browser.quit()
+    driver.save_screenshot('./scheduled_login_tradetron/logs/4_after_redirect.png')
+    return
+
+def teardown_driver(driver: webdriver.Remote):
+    """
+    _summary_
+
+    :param driver: _description_
+    :type driver: webdriver.Remote
+    """
+    driver.quit()
+    return
+
+def teardown_container():
+    """
+    _summary_
+    """
+    return
+
+def teardown(driver: webdriver.Remote):
+    """
+    _summary_
+
+    :param driver: _description_
+    :type driver: webdriver.Remote
+    """
+    teardown_driver(driver = driver)
+
     return
 
 def main():
@@ -100,8 +174,12 @@ def main():
     logging_config.log.info('Read Website Configuration: Begin')
     url, username_id, password_id, otp_id, submit_button_id = read_website_config()
     logging_config.log.info('Read Website Configuration: Done')
+    logging_config.log.info('Instantiate Web Browser: Begin')
+    driver = setup()
+    logging_config.log.info('Instantiate Web Browser: Done')
     logging_config.log.info('Logging In: Begin')
     login(
+        driver = driver,
         url = url,
         username_id = username_id, username = username,
         password_id = password_id, password = password,
@@ -109,6 +187,9 @@ def main():
         submit_button_id = submit_button_id
     )
     logging_config.log.info('Logging In: Done')
+    logging_config.log.info('Teardown: Begin')
+    teardown(driver = driver)
+    logging_config.log.info('Teardown: Done')
     return
 
 if __name__ == '__main__':

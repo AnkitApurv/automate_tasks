@@ -1,10 +1,12 @@
 FROM selenium/standalone-chrome:latest
+FROM python:latest
 
-ENV APP_HOME /usr/src/scheduled_login_tradetron
-WORKDIR /$APP_HOME
+ENV ${APP_HOME} = /opt/scheduled_login_tradetron
 
-COPY . $APP_HOME/
+RUN mkdir -P ${APP_HOME}
 
-RUN pip install -r requirements.txt
+WORKDIR ${APP_HOME}
 
-CMD python app
+COPY . .
+
+RUN pip install -r ./setup/requirements.txt
