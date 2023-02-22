@@ -1,1 +1,1 @@
-{"url": "https://flattrade.tradetron.tech/auth/810019", "username_id": "input-17", "password_id": "pwd", "otp_id": "pan", "submit_button_id": "sbmt"}
+{"url": "https://flattrade.tradetron.tech/auth/810019", "username_id": "User ID", "password_id": "Password", "otp_id": "TOTP/OTP", "submit_button_id": "Login"}
