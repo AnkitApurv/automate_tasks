@@ -1,7 +1,7 @@
 """
 _summary_
 """
-from typing import Tuple
+from typing import Tuple, Any
 import time
 
 import docker
@@ -50,12 +50,11 @@ def run_container():
     """
     _summary_
     """
-    docker_client = docker.from_env()
-    browser_container = docker_client.containers.run(
-        image = 'selenium/standalone-chrome', name = '', 
-        detach = True, remove = True, auto_remove = True
+    return docker.from_env().containers.run(
+        image = 'selenium/standalone-chrome',
+        detach = True, remove = True, auto_remove = True,
+        ports = {'4444/tcp': '4444'}, publish_all_ports = False
     )
-    return browser_container
 
 def instantiate_driver() -> webdriver.Remote:
     """
@@ -70,11 +69,11 @@ def instantiate_driver() -> webdriver.Remote:
     browser_options.add_argument('--disable-gpu')
 
     return webdriver.Remote(
-        command_executor = 'http://127.0.0.1:32771/wd/hub',
+        command_executor = 'http://127.0.0.1:4444/wd/hub',
         options = browser_options
     )
 
-def setup():
+def setup() -> Tuple[webdriver.Remote, Any]:
     """
     _summary_
 
@@ -83,7 +82,7 @@ def setup():
     """
     browser_container = run_container()
     driver = instantiate_driver()
-    return driver
+    return driver, browser_container
 
 def login(
     driver: webdriver.Remote, url: str,
@@ -149,13 +148,17 @@ def teardown_driver(driver: webdriver.Remote):
     driver.quit()
     return
 
-def teardown_container():
+def teardown_container(browser_container):
     """
     _summary_
     """
+    browser_container.stop()
+    with open(f"{app_config.config_paths['logs_base_path']}/container_log.log", 'wt') as container_log:
+        container_log.write(browser_container.logs(tail = 'all', follow = None))
+    browser_container.remove()
     return
 
-def teardown(driver: webdriver.Remote):
+def teardown(driver: webdriver.Remote, browser_container):
     """
     _summary_
 
@@ -163,7 +166,7 @@ def teardown(driver: webdriver.Remote):
     :type driver: webdriver.Remote
     """
     teardown_driver(driver = driver)
-
+    teardown_container(browser_container = browser_container)
     return
 
 def main():
@@ -175,7 +178,9 @@ def main():
     url, username_id, password_id, otp_id, submit_button_id = read_website_config()
     logging_config.log.info('Read Website Configuration: Done')
     logging_config.log.info('Instantiate Web Browser: Begin')
-    driver = setup()
+    driver, browser_container = setup()
+    logging_config.log.info('Container ID: %s', browser_container.id)
+    logging_config.log.info('Container Name: %s', browser_container.name)
     logging_config.log.info('Instantiate Web Browser: Done')
     logging_config.log.info('Logging In: Begin')
     login(
@@ -188,7 +193,7 @@ def main():
     )
     logging_config.log.info('Logging In: Done')
     logging_config.log.info('Teardown: Begin')
-    teardown(driver = driver)
+    teardown(driver = driver, browser_container = browser_container)
     logging_config.log.info('Teardown: Done')
     return
 
