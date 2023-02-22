@@ -53,10 +53,10 @@ def run_container():
     return docker.from_env().containers.run(
         image = 'selenium/standalone-chrome',
         detach = True, remove = True, auto_remove = True,
-        ports = {'4444/tcp': '4444'}, publish_all_ports = False
+        publish_all_ports = True
     )
 
-def instantiate_driver() -> webdriver.Remote:
+def instantiate_driver(exposed_ports: dict) -> webdriver.Remote:
     """
     _summary_
 
@@ -68,8 +68,14 @@ def instantiate_driver() -> webdriver.Remote:
     browser_options.add_argument('--disable-extensions')
     browser_options.add_argument('--disable-gpu')
 
+    selenium_port_container = '4444/tcp'
+    selenium_port_host: str = exposed_ports[selenium_port_container] \
+        if len(exposed_ports[selenium_port_container]) > 0 \
+        else \
+            selenium_port_container[:-4]
+
     return webdriver.Remote(
-        command_executor = 'http://127.0.0.1:4444/wd/hub',
+        command_executor = f"http://127.0.0.1:{selenium_port_host}/wd/hub",
         options = browser_options
     )
 
@@ -81,7 +87,7 @@ def setup() -> Tuple[webdriver.Remote, Any]:
     :rtype: _type_
     """
     browser_container = run_container()
-    driver = instantiate_driver()
+    driver = instantiate_driver(exposed_ports = browser_container.attrs['Config']['ExposedPorts'])
     return driver, browser_container
 
 def login(
@@ -152,10 +158,14 @@ def teardown_container(browser_container):
     """
     _summary_
     """
+    with open(f"{app_config.config_paths['logs_base_path']}/container_log.log", 'wb') as container_log:
+        container_log.write(
+            browser_container.logs(
+                stream = False, timestamps = True, tail = 'all', follow = None
+            )
+        )
     browser_container.stop()
-    with open(f"{app_config.config_paths['logs_base_path']}/container_log.log", 'wt') as container_log:
-        container_log.write(browser_container.logs(tail = 'all', follow = None))
-    browser_container.remove()
+    # container will be removed automatically once stopped, owing to it's run config
     return
 
 def teardown(driver: webdriver.Remote, browser_container):
