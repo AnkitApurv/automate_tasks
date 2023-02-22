@@ -51,7 +51,7 @@ def run_container():
     _summary_
     """
     return docker.from_env().containers.run(
-        image = 'selenium/standalone-chrome',
+        image = 'selenium/standalone-chrome', shm_size = '2g',
         detach = True, remove = True, auto_remove = True,
         publish_all_ports = True
     )
