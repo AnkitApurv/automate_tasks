@@ -1,6 +1,7 @@
 import argparse
 from app import logging_config
-from app.crypto import make_encrypted_config, read_encrypted_config
+from app.crypto import read_encrypted_config
+from app.manage_creds import make_encrypted_config
 
 def update_config(config: dict) -> dict:
     """

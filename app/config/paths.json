@@ -1,6 +1,6 @@
 {
-    "base_path": "./scheduled_login_tradetron/",
-    "config_base_path": "./scheduled_login_tradetron/app/config",
+    "base_path": ".",
+    "config_base_path": "./app/config",
     "config_files": {
         "webpage": "webpage.json",
         "credential": "credentials.secret.json.bin"
@@ -9,5 +9,5 @@
         "public_key": "public_key.pem",
         "private_key": "private_key.pem"
     },
-    "logs_base_path": "./scheduled_login_tradetron/logs"
+    "logs_base_path": "./logs"
 }

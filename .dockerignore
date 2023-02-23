@@ -1,0 +1,15 @@
+# directories
+.git
+__pycache__
+.vscode
+logs
+setup
+systemd
+
+# file globs
+.dockerignore
+.gitignore
+docker-compose.yaml
+dockerfile-login
+fockerfile-manage_creds
+ReadMe.md
