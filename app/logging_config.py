@@ -14,7 +14,7 @@ def main() -> logging.Logger:
     log = logging.getLogger('scheduled_login_tradetron')
     log_fmt = logging.Formatter(
         fmt = '%(asctime)s: %(levelname)s: %(message)s',
-        datefmt='%Y-%m-%d %H:%M:%S.%f'
+        datefmt='%Y-%m-%d %H:%M:%S %Z'
     )
     # log_ch = JournalHandler()
     log_ch = logging.FileHandler(
