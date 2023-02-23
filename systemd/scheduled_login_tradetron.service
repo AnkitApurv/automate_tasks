@@ -1,8 +1,12 @@
 [Unit]
 Description=scheduled_login_tradetron
+StartLimitIntervalSec=150
+StartLimitBurst=1
 OnFailure=notify_failed@%n
 
 [Service]
 ExecStart=%h/opt/scheduled_login_tradetron/venv/bin/python scheduled_login_tradetron
 WorkingDirectory=%h/opt
 Type=oneshot
+Restart=on-failure
+RestartSec=120
