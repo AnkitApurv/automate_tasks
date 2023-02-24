@@ -1,3 +1,6 @@
+"""
+_summary_
+"""
 import json
 import argparse
 import pywebio
@@ -29,7 +32,8 @@ def encrypt_config(config: dict) -> bytes:
     :rtype: bytes
     """
     config_json = json.dumps(config)
-    config_bytes = bytes(str(config_json), encoding = 'utf-8') # do not use encode, it mangles original data
+    # do not use encode, it mangles original data
+    config_bytes = bytes(str(config_json), encoding = 'utf-8')
     encrypted = crypto_interface.encrypt(config_bytes)
     return encrypted
 
@@ -40,7 +44,10 @@ def save_config(encrypted: bytes):
     :param encrypted: _description_
     :type encrypted: bytes
     """
-    with open(f"{app_config.config_paths['config_base_path']}/{app_config.config_paths['config_files']['credential']}", 'wb') as f:
+    with open(
+        f"{app_config.config_paths['config_base_path']}/{app_config.config_paths['config_files']['credential']}",
+        'wb'
+    ) as f:
         f.write(encrypted)
     return
 
