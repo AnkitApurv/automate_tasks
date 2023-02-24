@@ -1,0 +1,12 @@
+[Unit]
+Description=scheduled_login_tradetron credential management service
+StartLimitIntervalSec=150
+StartLimitBurst=1
+OnFailure=notify_failed@%n
+
+[Service]
+ExecStart=%h/opt/scheduled_login_tradetron/venv/bin/python -m app.manage_creds
+WorkingDirectory=%h/opt/scheduled_login_tradetron
+Type=oneshot
+Restart=on-failure
+RestartSec=120

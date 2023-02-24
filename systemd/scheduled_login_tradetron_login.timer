@@ -1,5 +1,5 @@
 [Unit]
-Description=scheduled_login_tradetron
+Description=scheduled_login_tradetron auto-login service
 
 [Timer]
 OnCalendar=Mon..Fri *-*-* 08:00:00 Asia/Kolkata

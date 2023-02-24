@@ -1,0 +1,8 @@
+{
+    "host": "localhost",
+    "port": 48251,
+    "ssl_config": {
+        "certfile": "./app/config/instance-20230221-1847_ssl.crt",
+        "keyfile": "./app/config/instance-20230221-1847_ssl.key"
+    }
+}
