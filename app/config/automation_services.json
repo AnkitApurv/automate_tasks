@@ -1,0 +1,5 @@
+{
+    "tradetron": {
+        "config_path": "./app/config/tradetron"
+    }
+}

@@ -1,13 +1,10 @@
 {
-    "base_path": ".",
-    "config_base_path": "./app/config",
-    "config_files": {
-        "webpage": "webpage.json",
-        "credential": "credentials.secret.json.bin"
-    },
+    "base": ".",
+    "config": "./app/config",
+    "logs": "./logs",
+    "profile": "./profile",
     "asymmetric_keyset": {
-        "public_key": "public_key.pem",
-        "private_key": "private_key.pem"
-    },
-    "logs_base_path": "./logs"
+        "public_key": "./profile/public_key.pem",
+        "private_key": "./profile/private_key.pem"
+    }
 }

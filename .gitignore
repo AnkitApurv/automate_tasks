@@ -4,5 +4,13 @@ __pycache__
 .vscode
 
 # files' globs
+## sensetive files
+*.secret.*
+*.pem
+*.crt
+*.key
+## logs
 *.log
+*.png
+## extra text files
 help.txt

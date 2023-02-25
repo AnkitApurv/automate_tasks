@@ -8,7 +8,7 @@ from playwright import sync_api
 from app import app_utils, app_config, logging_config
 from app.crypto import read_encrypted_config
 
-def read_credential() -> Tuple[str, str, str]:
+def read_credential(profile: dict) -> Tuple[str, str, str]:
     """
     _summary_
 
@@ -89,11 +89,11 @@ def login(url: str,
         browser.close()
     return
 
-def main():
+def main(profile: dict):
     """
     _summary_
     """
-    username, password, otp = read_credential()
+    username, password, otp = read_credential(profile = profile)
     url, username_id, password_id, otp_id, submit_button_id = read_website_config()
     login(
         url = url,

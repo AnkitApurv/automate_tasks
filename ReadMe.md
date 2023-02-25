@@ -1,11 +1,35 @@
-# Scheduled Login : Tradetron
+# Automate Tasks
 
-This is a python project which is meant to automate logging into Tradetron web platform.
+## Documentation
 
-## License and Disclaimer
+Where's the documentation?
 
-__NOTE__: This is a private project, no party is authorized access to the source code or it's usage in any capacity unless explicitly grated access by the original author.
+Steps to access the documentation:
 
-## Usage
+__NOTE__: First 2 steps need to be followed only once on any new system, the last 2 steps should be followed whenever one want to access the documentation.
 
-The python scripts and assisting files are stored in _app_ folder, plese see readme.md within that folder.
+1. Create a new python venv and activate it.
+
+    ```shell
+    python venv .venv
+    chmod 755 ./.venv/bin/activate
+    . ./.venv/bin/activate
+    ```
+
+2. Install dependencies via pip.
+
+    ```shell
+    pip install -r ./setup/requirements-docs.txt
+    ```
+
+3. Start documentation server.
+
+    ```shell
+    mkdocs serve
+    ```
+
+4. Access documentation website: command executed in the previous step will emit a line similar to the one below, that's the link to our documentation website.
+
+    ```log
+    Serving on http://127.0.0.1:8000/
+    ```

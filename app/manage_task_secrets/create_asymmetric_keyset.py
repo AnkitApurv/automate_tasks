@@ -35,6 +35,3 @@ def main():
         f.write(pem_public)
     logging_config.log.info('Save Asymmetric Key-pair to disk: Done')
     return
-
-if __name__ == '__main__':
-    main()
