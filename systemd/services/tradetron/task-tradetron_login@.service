@@ -1,0 +1,12 @@
+[Unit]
+Description=automate_tasks tradetron login service
+StartLimitIntervalSec=150
+StartLimitBurst=1
+OnFailure=notify_failed@%n
+
+[Service]
+ExecStart=%h/opt/automate_tasks/.venv/bin/python -m app.login %I
+WorkingDirectory=%h/opt/automate_tasks
+Type=oneshot
+Restart=on-failure
+RestartSec=120

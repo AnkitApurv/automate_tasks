@@ -1,4 +1,0 @@
-cryptography
-aiohttp[speedups]
-pywebio
-pywebio-battery

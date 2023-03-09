@@ -1,24 +1,26 @@
 import json
-from app import app_config, logging_config
+from typing import Any, Dict
+
 from app.crypto import crypto_interface
 
-def read_config(profile: dict):
-    with open(f"{app_config.config_paths['config_base_path']}/{app_config.config_paths['config_files']['credential']}", 'rb') as f:
-        encrypted = f.read()
+
+def read_config(file_path: str) -> bytes:
+    with open(file_path, 'rb') as f:
+        encrypted: bytes = f.read()
     return encrypted
 
-def decrypt_config(encrypted: bytes) -> dict:
-    config_bytes = crypto_interface.decrypt(encrypted)
-    config = json.loads(config_bytes)
+def decrypt_config(encrypted: bytes) -> Dict[Any, Any]:
+    config_bytes: bytes = crypto_interface.decrypt(encrypted)
+    config: Dict[Any, Any] = json.loads(config_bytes)
     return config
 
 
-def main(profile: dict):
+def main(file_path: str) -> Dict[Any, Any]:
     """
     _summary_
     """
-    logging_config.log.info('Read Current Credentials: Begin')
-    encrypted = read_config(profile = profile)
-    config = decrypt_config(encrypted = encrypted)
-    logging_config.log.info('Read Current Credentials: Done')
+    encrypted: bytes = read_config(file_path = file_path)
+    config: Dict[Any, Any] = decrypt_config(encrypted = encrypted)
+    return config
+    config: Dict[Any, Any] = decrypt_config(encrypted = encrypted)
     return config

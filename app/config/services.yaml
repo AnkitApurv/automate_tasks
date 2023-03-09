@@ -1,0 +1,9 @@
+tradetron:
+  name: tradetron
+  config_path: ./app/config/tradetron
+  log_path: ./logs/tradetron
+  systemd_path: ./systemd/services/tradetron
+  sub_services:
+    login:
+      service: task-tradetron_login@.service
+      timer: task-tradetron_login@.timer

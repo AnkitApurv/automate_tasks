@@ -1,0 +1,7 @@
+base: .
+app_config: ./app/config
+logs: ./logs
+profile: ./profile
+asymmetric_keyset:
+  public_key: ./profile/public_key.pem
+  private_key: ./profile/private_key.pem

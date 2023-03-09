@@ -1,0 +1,5 @@
+url: https://flattrade.tradetron.tech/auth/810019
+username_id: User ID
+password_id: Password
+otp_id: TOTP/OTP
+submit_button_id: Login

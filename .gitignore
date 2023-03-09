@@ -2,6 +2,7 @@
 venv
 __pycache__
 .vscode
+extra_stuff
 
 # files' globs
 ## sensetive files
@@ -12,5 +13,3 @@ __pycache__
 ## logs
 *.log
 *.png
-## extra text files
-help.txt

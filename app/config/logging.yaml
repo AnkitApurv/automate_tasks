@@ -1,0 +1,73 @@
+version: 1
+formatters:
+  f_summarized:
+    format: '%(levelname)s: %(service)s.%(name): %(task)s: %(asctime)s: %(message)s'
+    datefmt: '%H:%M %Z'
+    validate: false
+  f_default:
+    format: '%(levelname)s: %(service)s.%(name): %(task)s: %(asctime)s: %(message)s'
+    datefmt: '%Y-%m-%d %H:%M:%S %Z'
+    validate: false
+  f_detailed:
+    format: '%(levelname)s: %(service)s.%(name): %(task)s: %(pathname)s: %(asctime)s.%(msecs)d: %(message)s'
+    datefmt: '%Y-%m-%d %H:%M:%S %Z'
+    validate: false
+filters: {}
+handlers:
+  h_default:
+    class: logging.FileHandler
+    level: INFO
+    formatter: f_default
+    filters: []
+    filename: ./logs/automate_tasks.log
+    mode: a
+    encoding: utf-8
+  h_debug:
+    class: logging.FileHandler
+    level: DEBUG
+    formatter: f_detailed
+    filters: []
+    filename: ./logs/automate_tasks_detailed.log
+    mode: a
+    encoding: utf-8
+  h_manage_tasks_config:
+    class: logging.FileHandler
+    level: INFO
+    formatter: f_default
+    filters: []
+    filename: ./logs/manage_tasks_config/log.log
+    mode: a
+    encoding: utf-8
+  h_tradetron:
+    class: logging.FileHandler
+    level: INFO
+    formatter: f_default
+    filters: []
+    filename: ./logs/tradetron/log.log
+    mode: a
+    encoding: utf-8
+loggers:
+  __main__:
+    level: INFO
+    propagate: false
+    filters: []
+    handlers:
+      - h_default
+  manage_tasks_config:
+    level: INFO
+    propagate: false
+    filters: []
+    handlers:
+      - h_manage_tasks_config
+  tradetron:
+    level: INFO
+    propagate: false
+    filters: []
+    handlers:
+      - h_tradetron
+root:
+  filters: []
+  handlers: 
+    - h_default
+incremental: false
+disable_existing_loggers: false

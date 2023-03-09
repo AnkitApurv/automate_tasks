@@ -1,0 +1,14 @@
+# interfaces
+## web
+aiohttp[speedups]
+pywebio
+pywebio-battery
+## cli
+typer[all]
+# services
+cryptography
+playwright
+# docs
+mkdocs-material
+mkdocstrings[python]
+mkdocs-git-revision-date-localized-plugin

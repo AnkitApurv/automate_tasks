@@ -1,8 +1,0 @@
-{
-    "tradetron_a": {
-        "automation_service": "tradetron",
-        "profile_path": "./profile/tradetron_a",
-        "logs_path": "/logs/tradetron_a",
-        "credentials": "credentials.json.secret"
-    }
-}

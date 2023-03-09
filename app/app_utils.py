@@ -1,14 +1,15 @@
-import json
+from typing import Any, Dict
 
-def read_config(file_path: str) -> dict:
-    """
-    _summary_
+import yaml
 
-    :param config_file_path: _description_
-    :type config_file_path: str
-    :return: _description_
-    :rtype: dict
-    """
-    with open(file = file_path, mode = 'rt', encoding = 'utf8') as f:
-        config = json.loads(s = f.read())
+
+def read_config(file_path: str) -> Dict[Any, Any]:
+    with open(file=file_path, mode="rt", encoding="utf-8") as f:
+        config: Dict[Any, Any] = yaml.safe_load(stream=f.read())
     return config
+
+
+def write_config(file_path: str, config: Dict[Any, Any]) -> None:
+    with open(file=file_path, mode="wt", encoding="utf-8") as f:
+        yaml.safe_dump(data=config, stream=f)
+    return
