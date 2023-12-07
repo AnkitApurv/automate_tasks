@@ -44,6 +44,9 @@ jobs:
         working-directory: docs
 
       - uses: actions/upload-pages-artifact@v2
+        with:
+          name: github-pages.tar.gz
+          retention-days: 1
 
   deploy:
     needs: build
