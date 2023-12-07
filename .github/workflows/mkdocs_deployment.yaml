@@ -31,21 +31,21 @@ jobs:
       - run: mkdocs build --clean --site-dir site
         working-directory: docs
 
-      - run: chmod -c -R +rX "site/"
-        working-directory: docs
+      # - run: chmod -c -R +rX "site/"
+      #   working-directory: docs
 
-      - run: tar -c -f site.tar site/
-        working-directory: docs
+      # - run: tar -c -f site.tar site/
+      #   working-directory: docs
 
-      - run: gzip site.tar
-        working-directory: docs
+      # - run: gzip site.tar
+      #   working-directory: docs
 
-      - run: mv site.tar.gz github-pages.tar.gz
-        working-directory: docs
+      # - run: mv site.tar.gz github-pages.tar.gz
+      #   working-directory: docs
 
       - uses: actions/upload-pages-artifact@v2
         with:
-          path: docs/github-pages.tar.gz
+          path: docs/site
           retention-days: 1
 
   deploy:
