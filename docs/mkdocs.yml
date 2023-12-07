@@ -32,12 +32,6 @@ plugins:
   - offline
   - search:
       lang: en
-  - mkdocstrings
-      default_handler: python
-        handlers:
-          python:
-            options:
-              show_source: true
   - git-revision-date-localized:
       type: timeago
       fallback_to_build_date: true
@@ -48,8 +42,6 @@ markdown_extensions:
       use_pygments: true
       auto_title: true
   - pymdownx.superfences
-watch:
-  - app
 nav:
   - index.md
   - app:
