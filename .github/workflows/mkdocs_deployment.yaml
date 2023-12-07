@@ -28,13 +28,13 @@ jobs:
             mkdocs-material-
       - run: pip install -r ./requirements.txt
 
-      - run: mkdocs build --clean --site-dir _site
+      - run: mkdocs build --clean --site-dir site
         working-directory: docs
 
-      - run: chmod -c -R +rX "_site/"
+      - run: chmod -c -R +rX "site/"
         working-directory: docs
 
-      - run: tar -c -f site.tar _site/
+      - run: tar -c -f site.tar site/
         working-directory: docs
 
       - run: gzip site.tar
@@ -45,7 +45,7 @@ jobs:
 
       - uses: actions/upload-pages-artifact@v2
         with:
-          name: github-pages.tar.gz
+          path: docs/github-pages.tar.gz
           retention-days: 1
 
   deploy:
