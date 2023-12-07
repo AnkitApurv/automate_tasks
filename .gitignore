@@ -1,7 +1,6 @@
 # directories
 venv
 __pycache__
-extra_stuff
 
 # files' globs
 

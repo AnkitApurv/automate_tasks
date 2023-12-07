@@ -1,5 +1,0 @@
-tradetron_a:
-  name: tradetron_a
-  profile_path: ./profile/tradetron_a
-  files:
-    credentials: ./profile/tradetron_a/credentials.json.secret

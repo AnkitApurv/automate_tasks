@@ -1,3 +1,0 @@
-manage_task_config:
-  name: manage_task_config
-  log_path: ./logs/manage_task_config

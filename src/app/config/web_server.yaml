@@ -1,6 +1,0 @@
-host: 0.0.0.0
-port: 45742
-ssl_config:
-  certfile: ./app/config/instance-20230221-1847_ssl.crt
-  keyfile: ./app/config/instance-20230221-1847_ssl.key
-  keyfile_password: 'ritesh@0904'
