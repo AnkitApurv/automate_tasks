@@ -31,7 +31,7 @@ jobs:
 
       - name: GZip static site
         working-directory: docs
-        run: gzip site
+        run: gzip -k -r site
 
       - name: Sep file perission on static site
         working-directory: docs
