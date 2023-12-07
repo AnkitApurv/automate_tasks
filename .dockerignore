@@ -1,4 +1,5 @@
 # directories
+
 .git
 __pycache__
 .vscode
@@ -7,9 +8,10 @@ setup
 systemd
 
 # file globs
+
 .dockerignore
 .gitignore
 docker-compose.yaml
 dockerfile-login
-fockerfile-manage_creds
+dockerfile-manage_creds
 ReadMe.md

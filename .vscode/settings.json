@@ -1,0 +1,26 @@
+{
+    "cSpell.words": [
+        "certfile",
+        "creds",
+        "keyfile",
+        "nbytes",
+        "pywebio",
+        "totp",
+        "tradetron",
+        "webio"
+    ],
+    "[python]": {
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": "explicit",
+        }
+    },
+    "python.analysis.extraPaths": [
+        "${workspaceFolder}",
+        "./src",
+    ],
+    "python.autoComplete.extraPaths": [
+        "${workspaceFolder}",
+        "./src",
+    ],
+}
