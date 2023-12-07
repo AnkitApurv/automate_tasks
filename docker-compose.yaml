@@ -1,7 +1,0 @@
-services:
-  login:
-    build: login.dockerfile
-  manage_creds:
-    build: manage_creds.dockerfile
-  docs:
-    build: docs.dockerfile

@@ -1,15 +1,7 @@
 # directories
 venv
 __pycache__
-.vscode
 extra_stuff
 
 # files' globs
-## sensetive files
-*.secret.*
-*.pem
-*.crt
-*.key
-## logs
-*.log
-*.png
+
