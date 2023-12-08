@@ -9,6 +9,7 @@ jobs:
 
   build:
 
+    # Grant the job the permission to build the static website using mkdoocs build
     permissions:
       contents: write
 
@@ -26,13 +27,9 @@ jobs:
       - uses: actions/setup-python@v4
         with:
           python-version: 3.x
+          cache: 'pip'
+          cache-dependency-path: $pip_requirements_path
 
-      - uses: actions/cache@v3
-        with:
-          key: mkdocs-material-${{ hashFiles(env.pip_requirements_path) }}
-          path: .cache
-          restore-keys: |
-            mkdocs-material-
       - run: pip install -r $pip_requirements_path
 
       - run: mkdocs build --clean --config-file docs/mkdocs.yaml --site-dir site
