@@ -28,7 +28,7 @@ jobs:
         with:
           python-version: 3.x
           cache: 'pip'
-          cache-dependency-path: $pip_requirements_path
+          cache-dependency-path: ${{ env.pip_requirements_path }}
 
       - run: pip install -r $pip_requirements_path
 
