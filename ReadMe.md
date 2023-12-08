@@ -1,6 +1,4 @@
-# Automate Tasks
-
-## Documentation
+# Documentation
 
 Where's the documentation?
 
@@ -19,13 +17,13 @@ __NOTE__: First 2 steps need to be followed only once on any new system, the las
 2. Install dependencies via pip.
 
     ```shell
-    pip install -r ./requirements-docs.txt
+    pip install -r ./setup/pip_requirements.txt
     ```
 
 3. Start documentation server.
 
     ```shell
-    mkdocs serve
+    mkdocs serve --clean --config-file docs/mkdocs.yaml
     ```
 
 4. Access documentation website: command executed in the previous step will emit a line similar to the one below, that's the link to our documentation website.

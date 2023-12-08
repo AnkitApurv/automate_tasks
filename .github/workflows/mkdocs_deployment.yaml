@@ -1,12 +1,20 @@
 name: mkdocs_deployment
+
 on:
   push:
     branches:
       - gh_pages
-permissions:
-  contents: write
+
 jobs:
+
   build:
+
+    permissions:
+      contents: write
+
+    env:
+      pip_requirements_path: setup/pip_requirements.txt
+
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -18,30 +26,16 @@ jobs:
       - uses: actions/setup-python@v4
         with:
           python-version: 3.x
-      - run: echo "cache_id=$(date --utc '+%V')" >> $GITHUB_ENV 
 
       - uses: actions/cache@v3
         with:
-          key: mkdocs-material-${{ env.cache_id }}
+          key: mkdocs-material-${{ hashFiles(env.pip_requirements_path) }}
           path: .cache
           restore-keys: |
             mkdocs-material-
-      - run: pip install -r ./requirements.txt
+      - run: pip install -r $pip_requirements_path
 
-      - run: mkdocs build --clean --site-dir site
-        working-directory: docs
-
-      # - run: chmod -c -R +rX "site/"
-      #   working-directory: docs
-
-      # - run: tar -c -f site.tar site/
-      #   working-directory: docs
-
-      # - run: gzip site.tar
-      #   working-directory: docs
-
-      # - run: mv site.tar.gz github-pages.tar.gz
-      #   working-directory: docs
+      - run: mkdocs build --clean --config-file docs/mkdocs.yaml --site-dir site
 
       - uses: actions/upload-pages-artifact@v2
         with:

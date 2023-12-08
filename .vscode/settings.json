@@ -1,18 +1,4 @@
 {
-    "cSpell.words": [
-        "betterem",
-        "certfile",
-        "creds",
-        "fontawesome",
-        "keyfile",
-        "nbytes",
-        "pygments",
-        "pywebio",
-        "timeago",
-        "totp",
-        "tradetron",
-        "webio"
-    ],
     "yaml.schemas": {
         "https://squidfunk.github.io/mkdocs-material/schema.json": "mkdocs.yml"
     },
@@ -23,16 +9,10 @@
         "tag:yaml.org,2002:python/name:materialx.emoji.twemoji",
         "tag:yaml.org,2002:python/name:pymdownx.superfences.fence_code_format"
     ],
-    "[python]": {
-        "editor.formatOnSave": true,
-        "editor.codeActionsOnSave": {
-            "source.organizeImports": "explicit",
-        }
-    },
-    "python.analysis.extraPaths": [
-        "${workspaceFolder}",
-    ],
-    "python.autoComplete.extraPaths": [
-        "${workspaceFolder}",
+    "cSpell.words": [
+        "betterem",
+        "fontawesome",
+        "pygments",
+        "timeago"
     ],
 }
