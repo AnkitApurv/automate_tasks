@@ -1,6 +1,20 @@
 # Documentation
 
+replace with robot framework
+
+For user auth:
+
+replace with pywebio with basic auth for auth + 
+pgp (using gnupg) + mozilla sops for saving password etc
+
+For secrets management:
+
+replace with either of the two
+- for central sotre serving multiple remote deployments -> hashicorp vault [not recommended dure to extra dependencies and need to manage secure connection b/w this vault and deployemnt which needs to use it's sevice]
+- for a mechnism isolated to an individual deployment -> pgp (using gnupg) + mozilla sops
+
 Where's the documentation?
+Uses materials for mkdocs
 
 Steps to access the documentation:
 

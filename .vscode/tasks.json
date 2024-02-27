@@ -1,0 +1,52 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "conda activate",
+            "type": "shell",
+            "command": "C:\\ProgramData\\miniconda3\\condabin\\activate.bat"
+        },
+        {
+            "label": "conda create env-mkdocs",
+            "type": "shell",
+            "dependsOrder": "sequence",
+            "dependsOn": ["conda activate"],
+            "command": "conda create --name env-mkdocs --quiet --yes",
+        },
+        {
+            "label": "conda activate env-mkdocs",
+            "type": "shell",
+            "dependsOrder": "sequence",
+            "dependsOn": ["conda activate"],
+            "command": "conda activate env-mkdocs",
+        },
+        {   "label": "conda install pip",
+            "type": "shell",
+            "dependsOrder": "sequence",
+            "dependsOn": ["conda activate", "conda create env-mkdocs"],
+            "command": "conda install --yes --quiet --name env-mkdocs pip",
+        },
+        {   "label": "pip install mkdocs",
+            "type": "shell",
+            "dependsOrder": "sequence",
+            "dependsOn": ["conda activate", "conda create env-mkdocs", "conda install pip", "conda activate env-mkdocs"],
+            "command": "pip install -r ./setup/pip_requirements.txt",
+        },
+        {
+            "label": "mkdocs build",
+            "type": "shell",
+            "dependsOrder": "sequence",
+            "dependsOn": ["conda activate", "conda activate env-mkdocs"],
+            "command": "python",
+            "args": ["-m", "mkdocs", "build", "--clean", "--config-file", "docs/mkdocs.yaml", "--site-dir site"]
+        },
+        {
+            "label": "mkdocs serve",
+            "type": "shell",
+            "dependsOrder": "sequence",
+            "dependsOn": ["conda activate", "conda activate env-mkdocs"],
+            "command": "python",
+            "args": ["-m", "mkdocs", "serve", "--clean", "--config-file", "docs/mkdocs.yaml"]
+        }
+    ]
+}

@@ -1,6 +1,12 @@
 {
     "version": "0.2.0",
     "configurations": [
-        
+        {
+            "name": "mkdocs serve docs",
+            "type": "firefox",
+            "preLaunchTask": "mkdocs serve",
+            "request": "launch",
+            "url": "http://127.0.0.1:8000"
+        }
     ]
 }

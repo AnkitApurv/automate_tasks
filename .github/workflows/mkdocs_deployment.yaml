@@ -32,11 +32,11 @@ jobs:
 
       - run: pip install -r $pip_requirements_path
 
-      - run: mkdocs build --clean --config-file docs/mkdocs.yaml --site-dir site
+      - run: mkdocs build --clean --config-file mkdocs.yaml --site-dir site
 
       - uses: actions/upload-pages-artifact@v2
         with:
-          path: docs/site
+          path: site
           retention-days: 1
 
   deploy:
