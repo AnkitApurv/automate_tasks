@@ -22,6 +22,8 @@ theme:
     - header.autohide
     - content.tabs.link
     - content.tooltips
+    - content.code.copy
+    - content.code.annotate
 
   palette:
     # Palette toggle for automatic mode
@@ -33,15 +35,15 @@ theme:
     - media: "(prefers-color-scheme: light)"
       scheme: default
       primary: teal
-      accent: indigo
+      accent: deep orange
       toggle:
         icon: material/weather-night
         name: Switch to dark mode
     # Palette toggle for dark mode
     - media: "(prefers-color-scheme: dark)"
       scheme: slate
-      primary: deep orange
-      accent: lime
+      primary: teal
+      accent: deep orange
       toggle:
         icon: material/weather-sunny
         name: Switch to light mode
@@ -75,13 +77,21 @@ markdown_extensions:
   - pymdownx.arithmatex:
       generic: true
   - pymdownx.betterem
+  - pymdownx.caret
+  - pymdownx.critic
   - pymdownx.details
   - pymdownx.emoji:
       emoji_index: !!python/name:material.extensions.emoji.twemoji
       emoji_generator: !!python/name:material.extensions.emoji.to_svg
   - pymdownx.highlight:
-      use_pygments: true
       auto_title: true
+      anchor_linenums: true
+      use_pygments: true
+      pygments_lang_class: true
+      line_spans: __span
+      linenums: true
+  - pymdownx.keys
+  - pymdownx.mark
   - pymdownx.snippets:
       auto_append:
         - includes/abbreviations.md
@@ -94,6 +104,7 @@ markdown_extensions:
       alternate_style: true
   - pymdownx.tasklist:
       custom_checkbox: true
+  - pymdownx.tilde
 
 extra:
   generator: true
